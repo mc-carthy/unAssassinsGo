@@ -11,6 +11,7 @@ public class Node : MonoBehaviour
     public List<Node> NeighbourNodes { get { return neighbourNodes; }}
 
     public GameObject geometry;
+    public GameObject linkPrefab;
     public float scaleTime = 0.3f;
     public iTween.EaseType easeType = iTween.EaseType.easeInExpo;
     public bool autorun = false;
@@ -94,7 +95,23 @@ public class Node : MonoBehaviour
 
         foreach(Node n in neighbourNodes)
         {
+            LinkNode(n);
             n.InitNode();
+        }
+    }
+
+    private void LinkNode(Node target)
+    {
+        if (linkPrefab != null)
+        {
+            GameObject linkInstance = Instantiate(linkPrefab, transform.position, Quaternion.identity);
+            linkInstance.transform.parent = transform;
+
+            Link link = linkInstance.GetComponent<Link>();
+            if (link != null)
+            {
+                link.DrawLink(transform.position, target.transform.position);
+            }
         }
     }
 }
