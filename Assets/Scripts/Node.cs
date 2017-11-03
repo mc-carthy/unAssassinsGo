@@ -10,6 +10,9 @@ public class Node : MonoBehaviour
     private List<Node> neighbourNodes = new List<Node>();
     public List<Node> NeighbourNodes { get { return neighbourNodes; }}
 
+    private List<Node> linkedNodes = new List<Node>();
+    public List<Node> LinkedNodes { get { return linkedNodes; }}
+
     public GameObject geometry;
     public GameObject linkPrefab;
     public float scaleTime = 0.3f;
@@ -95,8 +98,11 @@ public class Node : MonoBehaviour
 
         foreach(Node n in neighbourNodes)
         {
-            LinkNode(n);
-            n.InitNode();
+            if (!linkedNodes.Contains(n))
+            {
+                LinkNode(n);
+                n.InitNode();
+            }
         }
     }
 
@@ -111,6 +117,16 @@ public class Node : MonoBehaviour
             if (link != null)
             {
                 link.DrawLink(transform.position, target.transform.position);
+            }
+
+            if (!linkedNodes.Contains(target))
+            {
+                linkedNodes.Add(target);
+            }
+
+            if (!target.LinkedNodes.Contains(this))
+            {
+                target.LinkedNodes.Add(this);
             }
         }
     }
