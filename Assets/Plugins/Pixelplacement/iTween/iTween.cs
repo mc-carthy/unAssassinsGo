@@ -1,3 +1,5 @@
+#pragma warning disable 0618
+
 // Copyright (c) 2011 Bob Berkebile (pixelplacment)
 // Please direct any bugs/comments/suggestions to http://pixelplacement.com
 //
