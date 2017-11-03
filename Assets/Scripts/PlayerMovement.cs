@@ -11,10 +11,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        Move(new Vector3(2f, 0f, 0f), 1f);
-        Move(new Vector3(2f, 0f, 2f), 3f);
-        Move(new Vector3(4f, 0f, 2f), 5f);
-        Move(new Vector3(4f, 0f, 4f), 7f);
+
+    }
+
+    public void MoveLeft()
+    {
+        Vector3 newPos = transform.position + new Vector3(-2f, 0f, 0f);
+        Move(newPos, 0);
+    }
+
+    public void MoveRight()
+    {
+        Vector3 newPos = transform.position + new Vector3(2f, 0f, 0f);
+        Move(newPos, 0);
+    }
+
+    public void MoveForward()
+    {
+        Vector3 newPos = transform.position + new Vector3(0f, 0f, 2f);
+        Move(newPos, 0);
+    }
+
+    public void MoveBackward()
+    {
+        Vector3 newPos = transform.position + new Vector3(0f, 0f, -2f);
+        Move(newPos, 0);
     }
 
     public void Move(Vector3 pos, float delay = 0.25f)
