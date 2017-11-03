@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Node : MonoBehaviour 
@@ -16,6 +17,7 @@ public class Node : MonoBehaviour
     public float delay = 1f;
 
     private Board board;
+    private bool isInitialised = false;
 
     private void Awake()
     {
@@ -31,7 +33,7 @@ public class Node : MonoBehaviour
 
             if (autorun)
             {
-                ShowGeometry();
+                InitNode();
             }
 
             if (board != null)
@@ -69,5 +71,30 @@ public class Node : MonoBehaviour
         }
 
         return list;
+    }
+
+    public void InitNode()
+    {
+        if (!isInitialised)
+        {
+            ShowGeometry();
+            InitNeighbours();
+            isInitialised = true;
+        }
+    }
+
+    private void InitNeighbours()
+    {
+        StartCoroutine(InitNeighboursRoutine());
+    }
+
+    private IEnumerator InitNeighboursRoutine()
+    {
+        yield return new WaitForSeconds(delay);
+
+        foreach(Node n in neighbourNodes)
+        {
+            n.InitNode();
+        }
     }
 }
