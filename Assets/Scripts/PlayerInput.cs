@@ -5,7 +5,7 @@ public class PlayerInput : MonoBehaviour
     private float h;
     public float H { get { return h; }}
 
-    public float v;
+    private float v;
     public float V { get { return v; }}
 
     private bool inputEnabled = false;
