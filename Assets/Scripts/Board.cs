@@ -21,6 +21,13 @@ public class Board : MonoBehaviour
         GetNodeList();
     }
 
+    public Node FindNodeAt(Vector3 pos)
+    {
+        Vector2 boardCoord = Utility.Vector2Round(new Vector2(pos.x, pos.z));
+
+        return allNodes.Find(n => n.Coordinate == boardCoord);
+    }
+
     private void GetNodeList()
     {
         Node[] nodeList = GameObject.FindObjectsOfType<Node>();

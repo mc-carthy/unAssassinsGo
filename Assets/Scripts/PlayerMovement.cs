@@ -9,6 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 1.5f;
     public float iTweenDelay = 0f;
 
+    private Board board;
+
+    private void Awake()
+    {
+        board = GameObject.FindObjectOfType<Board>().GetComponent<Board>();
+    }
+
     private void Start()
     {
 
@@ -16,31 +23,37 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveLeft()
     {
-        Vector3 newPos = transform.position + new Vector3(-2f, 0f, 0f);
+        Vector3 newPos = transform.position + new Vector3(-Board.spacing, 0f, 0f);
         Move(newPos, 0);
     }
 
     public void MoveRight()
     {
-        Vector3 newPos = transform.position + new Vector3(2f, 0f, 0f);
+        Vector3 newPos = transform.position + new Vector3(Board.spacing, 0f, 0f);
         Move(newPos, 0);
     }
 
     public void MoveForward()
     {
-        Vector3 newPos = transform.position + new Vector3(0f, 0f, 2f);
+        Vector3 newPos = transform.position + new Vector3(0f, 0f, Board.spacing);
         Move(newPos, 0);
     }
 
     public void MoveBackward()
     {
-        Vector3 newPos = transform.position + new Vector3(0f, 0f, -2f);
+        Vector3 newPos = transform.position + new Vector3(0f, 0f, -Board.spacing);
         Move(newPos, 0);
     }
 
     public void Move(Vector3 pos, float delay = 0.25f)
     {
-        StartCoroutine(MoveRoutine(pos, delay));
+        if (board != null)
+        {
+            if (board.FindNodeAt(pos) != null)
+            {
+                StartCoroutine(MoveRoutine(pos, delay));
+            }
+        }
     }
 
     private IEnumerator MoveRoutine(Vector3 pos, float delay = 0.25f)
