@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour
 
         while(!isGameOver)
         {
-            isGameOver = IsWinner();
             yield return null;
+            isGameOver = IsWinner();
         }
     }
 
