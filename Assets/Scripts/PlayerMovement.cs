@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-
+        UpdateBoard();
     }
 
     public void MoveLeft()
@@ -49,7 +49,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (board != null)
         {
-            if (board.FindNodeAt(pos) != null)
+            Node targetNode = board.FindNodeAt(pos);
+            if (targetNode != null && board.PlayerNode.LinkedNodes.Contains(targetNode))
             {
                 StartCoroutine(MoveRoutine(pos, delay));
             }
@@ -80,5 +81,14 @@ public class PlayerMovement : MonoBehaviour
         iTween.Stop(gameObject);
         transform.position = pos;
         isMoving = false;
+        UpdateBoard();
+    }
+
+    private void UpdateBoard()
+    {
+        if (board != null)
+        {
+            board.UpdatePlayerNode();
+        }
     }
 }
