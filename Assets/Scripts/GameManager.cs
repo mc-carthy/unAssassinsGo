@@ -86,8 +86,19 @@ public class GameManager : MonoBehaviour
 
         while(!isGameOver)
         {
+            isGameOver = IsWinner();
             yield return null;
         }
+    }
+
+    private bool IsWinner()
+    {
+        if (board.PlayerNode != null)
+        {
+            return (board.PlayerNode == board.GoalNode);
+        }
+
+        return false;
     }
 
     private IEnumerator EndLevelRoutine()
