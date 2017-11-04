@@ -27,6 +27,15 @@ public class Board : MonoBehaviour
         GetNodeList();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0f, 1f, 1f, 0.5f);
+        if (playerNode != null)
+        {
+            Gizmos.DrawSphere(playerNode.transform.position, 0.2f);
+        }
+    }
+
     public Node FindNodeAt(Vector3 pos)
     {
         Vector2 boardCoord = Utility.Vector2Round(new Vector2(pos.x, pos.z));

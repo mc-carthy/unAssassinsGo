@@ -17,7 +17,6 @@ public class Node : MonoBehaviour
     public GameObject linkPrefab;
     public float scaleTime = 0.3f;
     public iTween.EaseType easeType = iTween.EaseType.easeInExpo;
-    public bool autorun = false;
     public float delay = 1f;
     public LayerMask obstacleLayer;
 
@@ -35,11 +34,6 @@ public class Node : MonoBehaviour
         if (geometry != null)
         {
             geometry.transform.localScale = Vector3.zero;
-
-            if (autorun)
-            {
-                InitNode();
-            }
 
             if (board != null)
             {
@@ -144,7 +138,7 @@ public class Node : MonoBehaviour
 
         if (Physics.Raycast(transform.position, dir, out hit, Board.spacing + 0.1f, obstacleLayer))
         {
-            Debug.Log("Hit obstacle between " + transform.position.x + "-" + transform.position.z + " and " + target.transform.position.x + "-" + target.transform.position.z);
+            // Debug.Log("Hit obstacle between " + transform.position.x + "-" + transform.position.z + " and " + target.transform.position.x + "-" + target.transform.position.z);
             return hit.collider.gameObject.GetComponent<Obstacle>();
         }
 
