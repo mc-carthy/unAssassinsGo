@@ -81,6 +81,14 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void InitBoard()
+    {
+        if (playerNode != null)
+        {
+            playerNode.InitNode();
+        }
+    }
+
     private Node FindGoalNode()
     {
         return allNodes.Find(n => n.isLevelGoal);

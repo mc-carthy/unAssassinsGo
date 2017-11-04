@@ -19,10 +19,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         UpdateBoard();
-        if (board != null && board.PlayerNode != null)
-        {
-            board.PlayerNode.InitNode();
-        }
     }
 
     public void MoveLeft()
