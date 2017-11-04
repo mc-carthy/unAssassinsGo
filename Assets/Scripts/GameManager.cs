@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public bool HasLevelFinished { get { return hasLevelFinished; } set { hasLevelFinished = value; }}
 
     public float delay = 1f;
+    public UnityEvent startLevelEvent;
+    public UnityEvent playLevelEvent;
+    public UnityEvent endLevelEvent;
 
     private Board board;
     private PlayerManager player;
@@ -62,6 +65,11 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+
+        if (startLevelEvent != null)
+        {
+            startLevelEvent.Invoke();
+        }
     }
 
     private IEnumerator PlayLevelRoutine()
@@ -70,6 +78,11 @@ public class GameManager : MonoBehaviour
         isGamePlaying = true;
         yield return new WaitForSeconds(delay);
         player.playerInput.InputEnabled = true;
+
+        if (playLevelEvent != null)
+        {
+            playLevelEvent.Invoke();
+        }
 
         while(!isGameOver)
         {
@@ -81,6 +94,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("END LEVEL");
         player.playerInput.InputEnabled = false;
+
+        if (endLevelEvent != null)
+        {
+            endLevelEvent.Invoke();
+        }
 
         while(!hasLevelFinished)
         {
