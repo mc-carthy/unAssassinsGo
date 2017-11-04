@@ -19,6 +19,7 @@ public class Node : MonoBehaviour
     public iTween.EaseType easeType = iTween.EaseType.easeInExpo;
     public bool autorun = false;
     public float delay = 1f;
+    public LayerMask obstacleLayer;
 
     private Board board;
     private bool isInitialised = false;
@@ -100,8 +101,13 @@ public class Node : MonoBehaviour
         {
             if (!linkedNodes.Contains(n))
             {
-                LinkNode(n);
-                n.InitNode();
+                Obstacle obstacle = FindObstacle(n);
+
+                if (obstacle == null)
+                {
+                    LinkNode(n);
+                    n.InitNode();
+                }
             }
         }
     }
@@ -129,5 +135,19 @@ public class Node : MonoBehaviour
                 target.LinkedNodes.Add(this);
             }
         }
+    }
+
+    private Obstacle FindObstacle(Node target)
+    {
+        Vector3 dir = target.transform.position - transform.position;
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, dir, out hit, Board.spacing + 0.1f, obstacleLayer))
+        {
+            Debug.Log("Hit obstacle between " + transform.position.x + "-" + transform.position.z + " and " + target.transform.position.x + "-" + target.transform.position.z);
+            return hit.collider.gameObject.GetComponent<Obstacle>();
+        }
+
+        return null;
     }
 }
