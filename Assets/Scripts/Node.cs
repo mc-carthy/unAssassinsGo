@@ -19,6 +19,7 @@ public class Node : MonoBehaviour
     public iTween.EaseType easeType = iTween.EaseType.easeInExpo;
     public float delay = 1f;
     public LayerMask obstacleLayer;
+    public bool isLevelGoal = false;
 
     private Board board;
     private bool isInitialised = false;
