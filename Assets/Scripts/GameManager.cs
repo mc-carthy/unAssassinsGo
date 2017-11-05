@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public bool HasLevelFinished { get { return hasLevelFinished; } set { hasLevelFinished = value; }}
 
     public float delay = 1f;
+    public UnityEvent setupEvent;
     public UnityEvent startLevelEvent;
     public UnityEvent playLevelEvent;
     public UnityEvent endLevelEvent;
@@ -58,6 +59,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevelRoutine()
     {
+        Debug.Log("SETUP LEVEL");
+        if (setupEvent != null)
+        {
+            setupEvent.Invoke();
+        }
+        
         Debug.Log("START LEVEL");
         player.playerInput.InputEnabled = false;
 
